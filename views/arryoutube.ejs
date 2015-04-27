@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title><%= title %></title>
+<!-- Latest compiled and minified CSS -->
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+<style>
+#intro {
+    text-align: left;
+    display: inline-block;
+    padding-left: 150px
+}
+</style>
+
+
+		<!-- 1. Add JQuery and Highcharts in the head of your page -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/highcharts-more.js"></script>
+         
+        <!-- 2. You can add print and export feature by adding this line -->
+        <!-- <script src="http://code.highcharts.com/modules/exporting.js"></script> -->
+ 
+ 
+<script type="text/javascript">
+				$(document).ready(function() {
+
+			   var payloadData = <%- JSON.stringify(payload) %>;
+			   console.log(payloadData.length);
+
+			  
+			   var pradData = <%- payload[0] %>;
+			   var sachData = <%- payload[1] %>;
+			   var arrData  = <%- payload[2] %>;
+			   var samprasData = <%- payload[3] %>;
+			   var federerData = <%- payload[4] %>;
+			   var waughData = <%- payload[5] %>;
+			   var mcgrathData = <%- payload[6] %>;
+			   var warneData = <%- payload[7] %>;
+			   					   
+               var xAxisData = pradData.timeData;
+
+               var videoData = pradData.ratingData;
+               var videoName = pradData.videoName;      
+
+               var video2Data = sachData.ratingData;
+               var video2Name = sachData.videoName;
+
+    			var video3Data = arrData.ratingData;
+    			var video3Name = arrData.videoName;
+
+    			var video4Data = samprasData.ratingData;
+    			var video4Name = samprasData.videoName;
+
+    			var video5Data = waughData.ratingData; 
+    			var video5Name = waughData.videoName;
+
+    			var video6Data = mcgrathData.ratingData;
+    			var video6Name = mcgrathData.videoName;
+
+    			var video7Data = warneData.ratingData;
+    			var video7Name = warneData.videoName;
+               
+               
+               console.log(JSON.stringify(videoName));
+               console.log(JSON.stringify(videoData));
+               
+               $('#ratingtrendcontainer').highcharts({
+                title: {
+                    text: 'Likability Trend',
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: 'Source: youtube.com',
+                    x: -20
+                },
+                xAxis: {
+                    categories: xAxisData
+                },
+                yAxis: {
+                    title: {
+                        text: 'Avg Rating'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '/5',
+                    pointFormat: "Value: {point.y:.3f}"
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: videoName,
+                    data: videoData
+                },
+                {
+                name : video2Name,
+                data : video2Data
+               },
+               {
+                   name : video3Name,
+                   data : video3Data
+                  },
+                  {
+                      name : video4Name,
+                      data : video4Data
+                     },
+                     {
+                         name : video5Name,
+                         data : video5Data
+                        },
+                        {
+                            name : video6Name,
+                            data : video6Data
+                           },
+                           {
+                               name : video7Name,
+                               data : video7Data
+                              }
+                ]
+            });
+        });
+      
+</script>
+
+</head>
+
+
+<body>
+	<% include navbar %> 
+	<h6></h6>
+	
+	
+	<div style="margin-left: 5%">
+		<img border="0" src="../O_Kadhal_Kanmani.jpg" width="1350" height="400">
+	</div>
+		<div id="intro"><strong>Ok Kanmani</strong> music was released in April 2015. <br>
+		I was interested to see which songs are most played and most liked based on YouTube.<br>
+		Since music companies are now officially releasing songs on Youtube, it has become a popular destination for online listeners.
+		So, here is some data extracted realtime from Youtube to quench that curiosity. But I wish I had data from Day 1 of release though.
+		Portal built with node.Js, Express, EJS and MongoDB.
+		</div>
+		<br><br><br>
+		<div id="ratingtrendcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"> </div><br><br>
+		<div id="viewscontainer" style="min-width: 310px; height: 400px; margin: 0 auto"> </div><br><br>
+		<div id="ratingscontainer" style="min-width: 310px; height: 400px; margin: 0 auto"> </div>
+		
+		
+	
+</body>
+
+<style>
+table,th,td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	border-spacing: 5px;
+	text-align: left;
+	color: white;
+	background-color: #4D4D4D;
+}
+</style>
+
+<script>
+
+
+function appendData(youtubeId, title, rating, statistics) {
+	console.log("POST'ing for appending: " + youtubeId + "Rating: " + rating.getAttribute("average"));
+	var averageValue = rating.getAttribute("average");
+	var numRatersValue = rating.getAttribute("numRaters");
+	var viewCountValue = statistics.getAttribute("viewCount");
+	var youtubeData = {"average" : averageValue, "numRaters" : numRatersValue, "viewCount" : viewCountValue};
+	$.post( "http://localhost:3000/append/" + youtubeId, youtubeData);
+}
+
+$(document).ready(function() {
+	console.log("In Bar Graph function");
+	var songList = [];
+	var viewsList = [];
+	var ratingList = [];
+	var videoInfo = "";
+	$.ajax({ 
+        type: "GET",
+             dataType: "json",
+            url: "http://localhost:3000/arryoutube/bargraph/",
+            success: function(response){ 
+               for (var i = 0; i < response.length; i++) {
+					//console.log(response[i]);
+					songList.push(response[i].title);
+					viewsList.push(parseInt(response[i].viewCount));
+					ratingList.push(parseFloat(response[i].rating));
+					console.log(response[i].title)
+               }
+               $(function () {
+            	    $('#ratingscontainer').highcharts({
+            	        chart: {
+            	            type: 'column'
+            	        },
+            	        title: {
+            	            text: 'Youtube views'
+            	        },
+            	        subtitle: {
+            	            text: 'Source: youtube.com'
+            	        },
+            	        xAxis: {
+            	            categories: songList,
+            	            title: {
+            	                text: null
+            	            }
+            	        },
+            	        yAxis: {
+            	            min: 0,
+            	            title: {
+            	                text: 'Rating',
+            	                align: 'high'
+            	            },
+            	            labels: {
+            	                overflow: 'justify'
+            	            }
+            	        },
+            	        tooltip: {
+            	            valueSuffix: ''
+            	        },
+            	        plotOptions: {
+            	            bar: {
+            	                dataLabels: {
+            	                    enabled: true
+            	                }
+            	            }
+            	        },
+            	        legend: {
+            	            layout: 'vertical',
+            	            align: 'right',
+            	            verticalAlign: 'top',
+            	            x: -40,
+            	            y: 100,
+            	            floating: true,
+            	            borderWidth: 1,
+            	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            	            shadow: true
+            	        },
+            	        credits: {
+            	            enabled: false
+            	        },
+            	        series: [ {
+            	            name: 'Views',
+            	            data: viewsList
+            	        }]
+            	    });
+            	});
+        	}
+        });
+});
+
+$(document).ready(function() {
+	console.log("In Pie Chart function");
+	
+	var dataset = [];
+	var videoInfo = "";
+	$.ajax({ 
+        type: "GET",
+             dataType: "json",
+            url: "http://localhost:3000/arryoutube/bargraph/",
+            success: function(response){ 
+               for (var i = 0; i < response.length; i++) {
+            	    var row = [];
+					var key = response[i].title;
+					var value = parseInt(response[i].viewCount);
+					row.push(key);
+					row.push(value);
+					dataset.push(row);
+					console.log(">>" + key + ":" + value);
+               }
+               $(function () {
+            	    $('#viewscontainer').highcharts({
+            	        chart: {
+            	            plotBackgroundColor: null,
+            	            plotBorderWidth: null,
+            	            plotShadow: false
+            	        },
+            	        title: {
+            	            text: 'Share of Youtube views'
+            	        },
+            	        tooltip: {
+            	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            	        },
+            	        plotOptions: {
+            	            pie: {
+            	                allowPointSelect: true,
+            	                cursor: 'pointer',
+            	                dataLabels: {
+            	                    enabled: true,
+            	                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            	                    style: {
+            	                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            	                    }
+            	                }
+            	            }
+            	        },
+            	        series: [{
+            	            type: 'pie',
+            	            name: 'Views',
+            	            data: dataset
+            	        }]
+            	    });
+            	});
+        	}
+        });
+});
+
+</script>
+ 
+<div class="container"><% include footer %></div>
+
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "arr-youtube",
+  "version": "1.0.0",
+  "description": "A.R.Rahman YouTube Dashboard",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+"dependencies": {
+    "express": "3.2.6",
+    "ejs": "*",
+    "mongodb": "*"
+  },
+"engines": {
+    "node": "0.12.x"
+  },
+  "keywords": [
+    "arr",
+    "a.r.r",
+    "a.r.rahman"
+  ],
+  "author": "pradeepanonline",
+  "license": "ISC"
+}
