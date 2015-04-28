@@ -140,6 +140,11 @@
       
 </script>
 
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "fcdd88a1-a047-42a2-aa13-3f288410071f", doNotHash: false, doNotCopy: false, hashAddressBar: false});
+</script>
+
 </head>
 
 
@@ -151,22 +156,47 @@
 	<div style="margin-left: 5%">
 		<img border="0" src="../O_Kadhal_Kanmani.jpg" width="1350" height="400">
 	</div>
-		<div id="intro"><strong>Ok Kanmani</strong> music was released in April 2015. <br>
-		I was interested to see which songs are most played and most liked based on YouTube.<br>
-		Since music companies are now officially releasing songs on Youtube, it has become a popular destination for online listeners.
-		So, here is some data extracted realtime from Youtube to quench that curiosity. But I wish I had data from Day 1 of release though.
-		Portal built with node.Js, Express, EJS and MongoDB.
-		</div>
-		<br><br><br>
-		<div id="ratingtrendcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"> </div><br><br>
-		<div id="viewscontainer" style="min-width: 310px; height: 400px; margin: 0 auto"> </div><br><br>
-		<div id="ratingscontainer" style="min-width: 310px; height: 400px; margin: 0 auto"> </div>
+	<div> </div>
+		<p><strong>Ok Kanmani</strong> music was released in April 2015. <br>
+		As always, ARR has given a great album for Mani Ratnam. My personal favorite is 'Theera Ulaa'. A very different number and ARR's use of his own voice is excellent. </br>
+		But the numbers from Youtube indicate 'Mental Manadhil' being an overwhelming favorite. 
+		<p>I wish I had data from day 1 to see if early release of a song influences the rest of the songs. </br>
+		The data here is grabbed from Youtube channel <a href="https://www.youtube.com/channel/UCTNtRdBAiZtHP9w7JinzfUg">SonyMusicSouthVEVO</a><br/>
 		
+		</p>
+		<br/><br/><br/>
+		<ul>
+		<li><div class="chart" id="ratingtrendcontainer"> </div></li>
+		<li><div class="chart" id="viewscontainer"> </div></li>
+		<li><div class="chart" id="ratingscontainer"> </div></li>
+		</ul>
 		
+	<div id="share">
+	<span class='st_sharethis_large' displayText='ShareThis'></span>
+	<span class='st_facebook_large' displayText='Facebook'></span>
+	<span class='st_twitter_large' displayText='Tweet'></span>
+	<span class='st_email_large' displayText='Email'></span>
+	</div>	
 	
 </body>
 
 <style>
+
+p{ 
+	line-height:32px; 
+	font-size:16px; 
+	margin-top:10px;
+	text-align: left;
+    display: inline-block;
+    padding-left: 150px
+}
+
+#share {
+ padding-left: 100px;
+ margin-top: 50px;
+ margin-bottom: 100px;
+}
+
 table,th,td {
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -175,6 +205,14 @@ table,th,td {
 	color: white;
 	background-color: #4D4D4D;
 }
+
+.chart {
+min-width: 310px;
+height: 400px;
+margin: 0;
+margin-bottom: 50px;
+}
+
 </style>
 
 <script>
@@ -198,7 +236,7 @@ $(document).ready(function() {
 	$.ajax({ 
         type: "GET",
              dataType: "json",
-            url: "http://localhost:3000/arryoutube/bargraph/",
+            url: "http://localhost:5000/arryoutube/bargraph/",
             success: function(response){ 
                for (var i = 0; i < response.length; i++) {
 					//console.log(response[i]);
@@ -276,7 +314,7 @@ $(document).ready(function() {
 	$.ajax({ 
         type: "GET",
              dataType: "json",
-            url: "http://localhost:3000/arryoutube/bargraph/",
+            url: "http://localhost:5000/arryoutube/bargraph/",
             success: function(response){ 
                for (var i = 0; i < response.length; i++) {
             	    var row = [];

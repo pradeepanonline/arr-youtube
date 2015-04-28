@@ -3,23 +3,34 @@
 <% include header %>
 <body>
     <% include navbar %>
- 
+ 	<h6></h6><br>
     <div class="container">
         <div class="page-header">
             <h1>
-                About <small>Pradeepan</small>
+                About</small>
             </h1>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">About Us</div>
-            <div class="panel-body">
-                <p>What about it ?</p>
-            </div>
+        
+            <div style="margin-left: 0%">
+				<img src="../arr.jpg" >
+			</div>
+			<p></p>
+            <div>
+                <p><strong><a href="http://en.wikipedia.org/wiki/A._R._Rahman">A.R. Rahman</a></strong> is an Indian composer, singer-songwriter, music producer, musician and philanthropist.
+				<p>
+				I am an ardent fan of A.R. Rahman. I was interested to see which of songs are most played and most liked based on YouTube.<br>
+				Since music companies are now officially releasing songs on Youtube, it has become a popular destination for online listeners.<br/>
+				While Youtube data may not reflect everything, it is still a good indicator to see people's preferences.</p>
+				<p>So, I created this dashboard by reading statistics from Youtube API and tracking them realtime. <br/>I have picked up <a href="http://en.wikipedia.org/wiki/O_Kadhal_Kanmani">'OK Kanmani'</a> as a pilot. This was release in April 2015.
+				I wish I had data from Day 1 of the music release though.<br/>
+				Portal built with node.Js, Express, EJS and MongoDB with Bootstrap.
+				</p>
+		</div>
+        
         </div>
  
         <hr>
  
-        <% include footer %>
     </div>
     <!-- /container -->
     <script type="text/javascript">
@@ -36,4 +47,15 @@
     <script
         src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </body>
+<style>
+
+p{ 
+	line-height:32px; 
+	font-size:16px; 
+	margin-top:10px;
+	text-align: left;
+    display: inline-block;
+    padding-left: 0px
+}
+</style>
 </html>

@@ -1,5 +1,5 @@
 /**
- * Main Page for ARR Youtube
+ * Main Script for ARR Youtube
  */
 "use strict";
 var mongo = require('mongodb');
@@ -18,11 +18,6 @@ var videoName = "";
 var statsList = [];
 
 
-var rating2Data = [4.5, 4.6, 4.3, 4.8, 4.8];
-var numViewers2Data = [60000, 65000, 67000, 69000, 72000];
-var time2Data = ["04/01", "04/02", "04/03", "04/04", "04/05"];
-var video2Name = "Theera";
-	
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'youtube' database");
@@ -42,35 +37,6 @@ var roundNumber = function (number, digits) {
 };
 
 
-var getListByVideoId = function(videoid) {
-	console.log('Video ID: ' + videoid);
-	var query = {"_id" : videoid};
-
-	console.log('Retrieving video: ' + videoid);
-	db.collection('video', function(err, collection) {
-		collection.findOne({_id:videoid}, function(err, item) {
-			console.log("Retrieved number of items : " + item.stats.length);
-			videoName = item.title;
-			console.log("videoName : " + videoName);
-			ratingData = [];
-			numViewersData = [];
-			timeData = [];
-			for(var i=0; i < item.stats.length; i++) {
-				var numViewers = item.stats[i].viewCount;
-				numViewersData.push (numViewers/1);
-				console.log("Pushing numViewersData : " + numViewers);
-				console.log("Pushing ratingData: " + item.stats[i].average);
-				var roundedRating = roundNumber(item.stats[i].average, 3);
-				console.log("Pushing rounded ratingData: " + roundedRating);
-				ratingData.push (roundedRating);
-				console.log(item.stats[i].timestamp);
-				console.log(item.stats[i].timestamp.toDateString());
-				timeData.push(item.stats[i].timestamp.toDateString());
-			}
-		});
-	});
-};
-
 var getFullList = function(res) {
 	console.log('Retrieving video list from db ...');
 	statsList = [];
@@ -81,15 +47,12 @@ var getFullList = function(res) {
 						.each(function(err, item) {
 							if (item == null) {
 								res.render('arryoutube', {
-									title : new Date(),
-									name : "james",
+									title : "A.R.Rahman YouTube Dashboard",
 									payload : statsList
 								});
 							} else {
-								//console.log("Retrieved video : " + item._id);
 								var videoId = item._id;
 								var videoName = item.title;
-								//console.log("videoName : " + videoName);
 								ratingData = [];
 								numViewersData = [];
 								timeData = [];
@@ -120,9 +83,6 @@ var getFullList = function(res) {
 								};
 								var statsobj = JSON.stringify(stats);
 								statsList.push(statsobj);
-								//console.log("@@ Stats @@" + statsobj);
-								console.log("#" + statsList.length);
-								//console.log(statsList);
 							}
 						});
 
@@ -130,9 +90,9 @@ var getFullList = function(res) {
 };
 
 exports.displaytrend = function(req, res) {
+	console.log("In Display Trend");
 	getFullList(res);
-	console.log("stats list : " + statsList);
-	
+	console.log("stats list : " + statsList);	
 };
 
 
@@ -140,7 +100,6 @@ exports.displaybargraph = function(req, res) {
 	console.log("In Bar Graph Summary");
 	db.collection('summary', function(err, collection) {
         collection.find().toArray(function(err, items) {
-        	//console.log(items);
             res.send(items);
         });
     });
@@ -151,19 +110,3 @@ exports.welcome = function(req, res) {
 	res.send(200);
 };
 
-/*exports.displaystats = function(req, res) {
-	var videoid = req.params.videoid;
-	console.log("VideoId : " + videoid);
-	getListByVideoId(videoid);
-	res.render('arryoutube', {
-		title : 'ARR Youtube Project',
-		viewsData : numViewersData,
-		timeData : timeData,
-		videoRatingData : ratingData,
-		videoName : videoName,
-		views2Data : numViewers2Data,
-		time2Data : time2Data,
-		videoRating2Data : rating2Data,
-		video2Name  : video2Name
-	});
-};*/
