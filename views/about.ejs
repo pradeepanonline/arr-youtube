@@ -6,9 +6,9 @@
  	<h6></h6><br>
     <div class="container">
         <div class="page-header">
-            <h1>
-                About
-            </h1>
+            <h3>
+                About this experiment
+            </h3>
         </div>
         
         <div style="margin-left: 0%">
@@ -21,10 +21,18 @@
 				I am an ardent fan of A.R. Rahman. I was interested to see which of songs are most played and most liked based on YouTube.<br>
 				Since music companies are now officially releasing songs on Youtube, it has become a popular destination for online listeners.<br/>
 				While Youtube data may not reflect everything, it is still a good indicator to see people's preferences.</p>
-				<p>So, I created this dashboard by reading statistics from Youtube API and tracking them realtime. <br/>I have picked up <a href="http://en.wikipedia.org/wiki/O_Kadhal_Kanmani">'OK Kanmani'</a> as a pilot. This was release in April 2015.
-				I wish I had data from Day 1 of the music release though.<br/>
-				Portal built with node.Js, Express, EJS and MongoDB with Bootstrap.
-				</p>
+				<p>This dashboard is created with stats from Youtube API and deriving trends realtime. <br/>
+				I have picked up <a href="http://en.wikipedia.org/wiki/O_Kadhal_Kanmani">'OK Kanmani'</a> as a pilot. This was release in April 2015.<br/>
+				<p>
+				Youtube analytics provides good amount of data to video uploaders. But some more questions to consider ... <br/>
+				<ul>
+				<li>At which hours are more views happening ? Should advertisers be charged more during this time ?</li>
+				<li>Which song is likely to get purchased digitally ?</li>
+				<li>But more importantly for me, which A.R. Rahman songs are liked the most ? </li>
+				</ul> <br/>
+				<p>
+				The portal is built with <a href="https://nodejs.org/">node.Js</a>, <a href="http://expressjs.com/">Express</a>, <a href="http://www.embeddedjs.com/">EJS</a> and <a href="https://www.mongodb.org/">MongoDB</a> with <a href="http://getbootstrap.com/2.3.2/">Twitter Bootstrap</a>.
+				</p><br/><br/>
 		</div>
         
     </div>
@@ -46,7 +54,7 @@
         
         <style>
 
-p{ 
+p, ul{ 
 	line-height:32px; 
 	font-size:16px; 
 	margin-top:10px;
@@ -56,5 +64,7 @@ p{
 }
 </style>
 </body>
+
+<div class="container"><% include footer %></div>
 
 </html>
