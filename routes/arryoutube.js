@@ -116,6 +116,6 @@ exports.displaybargraph = function(req, res) {
 
 exports.welcome = function(req, res) {
 	console.log('User-Agent: ' + req.headers['user-agent']);
-	res.send(200);
+	res.render('about', { title: 'About' });
 };
 
