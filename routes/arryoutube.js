@@ -3,13 +3,14 @@
  */
 "use strict";
 var mongo = require('mongodb');
+var uri = "mongodb://heroku_app36283253:llm46nefmbrue5kp61l2u2a8q7@ds031632.mongolab.com:31632/heroku_app36283253";
 
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-var db = new Db('youtube', server);
+var server = new Server('ds031632.mongolab.com', 31632, {auto_reconnect: true});
+var db = new Db('heroku_app36283253', server);
 
 var ratingData = [];
 var timeData = [];
@@ -21,6 +22,12 @@ var statsList = [];
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'youtube' database");
+        db.authenticate('heroku_app36283253', 'llm46nefmbrue5kp61l2u2a8q7', function(err, result) {
+        	if(err) {
+        		console.log("Failed to authenticate");
+        		process.exit();
+        	}
+        });
         db.collection('video', {strict:true}, function(err, collection) {
             if (err) {
                 console.log("The 'video' collection doesn't exist. Error !!...");
