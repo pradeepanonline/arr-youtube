@@ -26,14 +26,16 @@ db.open(function(err, db) {
         	if(err) {
         		console.log("Failed to authenticate");
         		process.exit();
+        	} else {
+        		db.collection('video', {strict:true}, function(err, collection) {
+                    if (err) {
+                        console.log("The 'video' collection doesn't exist. Error !!...");
+                        process.exit();
+                    }
+                });
         	}
         });
-        db.collection('video', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'video' collection doesn't exist. Error !!...");
-                process.exit();
-            }
-        });
+        
     }
 });
 
