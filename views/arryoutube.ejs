@@ -232,9 +232,9 @@ $(document).ready(function() {
             url: "bargraph/",
             success: function(response){ 
                for (var i = 0; i < response.length; i++) {
-					//console.log(response[i]);
 					songList.push(response[i].title);
-					viewsList.push(parseInt(response[i].viewCount));
+					var avgView = Math.round(parseInt(response[i].viewCount) / parseInt(response[i].daysInSite));
+					viewsList.push(avgView);
 					ratingList.push(parseFloat(response[i].rating));
 					console.log(response[i].title)
                }
@@ -258,7 +258,7 @@ $(document).ready(function() {
             	        yAxis: {
             	            min: 0,
             	            title: {
-            	                text: 'Views',
+            	                text: 'Avg Daily Views',
             	                align: 'high'
             	            },
             	            labels: {
@@ -290,7 +290,7 @@ $(document).ready(function() {
             	            enabled: false
             	        },
             	        series: [ {
-            	            name: 'Views',
+            	            name: 'Avg Daily Views',
             	            data: viewsList
             	        }]
             	    });
