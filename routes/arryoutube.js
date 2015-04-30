@@ -75,8 +75,7 @@ var getFullList = function(res) {
 									prevTime = newTime;
 									var numViewers = item.stats[i].viewCount;
 									numViewersData.push(numViewers / 1);
-									var roundedRating = roundNumber(
-											item.stats[i].average, 3);
+									var roundedRating = ((item.stats[i].average / 5) * 100);
 									ratingData.push(roundedRating);
 									console.log(item.stats[i].timestamp);
 									console.log(item.stats[i].timestamp.toDateString());
