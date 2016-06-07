@@ -3,10 +3,17 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var errorHandler = require('errorhandler');
+var favicon = require('serve-favicon');
+var morgan = require('morgan');
+
+
+var http = require('http');
+var path = require('path')
+  , routes = require('./routes');
 
 var app = express();
 
@@ -22,16 +29,18 @@ var allowCrossDomain = function(req, res, next) {
 app.set('port', process.env.PORT || 5000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(morgan('dev'));
+
+app.use(bodyParser());
+app.use(methodOverride());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(errorHandler());
 }
 
 var about = require('./routes/about');
