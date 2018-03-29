@@ -17,3 +17,5 @@ Youtube analytics provides good amount of data to video uploaders. But some more
     But more importantly for me, which A.R. Rahman songs are liked the most ?
 
 The portal is built with node.Js, Express, EJS and MongoDB with Twitter Bootstrap.
+
+![Screenshot](youtube.png?raw=true "Youtube Trend")
